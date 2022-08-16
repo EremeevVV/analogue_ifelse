@@ -1,6 +1,6 @@
 from answers import Result
-from traditional import decision_tree
-
+# from traditional import decision_tree
+from rule_based import decision_tree
 
 def test_decision_tree_nonint():
     given = .01
