@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from answers import Result
+from data import ResultData
 
 
 class RuleInterface(Protocol):
@@ -8,7 +8,7 @@ class RuleInterface(Protocol):
     def condition(self, val: int) -> bool:
         pass
 
-    def action(self, val: int) -> Result:
+    def action(self, val: int) -> ResultData:
         pass
 
 
@@ -17,9 +17,9 @@ class PositiveRule:
     def condition(self, val: int) -> bool:
         return val > 0
 
-    def action(self, val: int) -> Result:
+    def action(self, val: int) -> ResultData:
         if self.condition(val):
-            return Result.POSITIVE
+            return ResultData.POSITIVE
 
 
 class NonIntRule:
@@ -27,9 +27,9 @@ class NonIntRule:
     def condition(self, val: int) -> bool:
         return not isinstance(val, int)
 
-    def action(self, val: int) -> Result:
+    def action(self, val: int) -> ResultData:
         if self.condition(val):
-            return Result.NONINT
+            return ResultData.NONINT
 
 
 class NullRule:
@@ -37,9 +37,9 @@ class NullRule:
     def condition(self, val: int) -> bool:
         return val == 0
 
-    def action(self, val: int) -> Result:
+    def action(self, val: int) -> ResultData:
         if self.condition(val):
-            return Result.NULL
+            return ResultData.NULL
 
 
 class NegativeRule:
@@ -47,9 +47,9 @@ class NegativeRule:
     def condition(self, val: int) -> bool:
         return val < 0
 
-    def action(self, val: int) -> Result:
+    def action(self, val: int) -> ResultData:
         if self.condition(val):
-            return Result.NEGATIVE
+            return ResultData.NEGATIVE
 
 
 class OverHundredRule:
@@ -57,9 +57,9 @@ class OverHundredRule:
     def condition(self, val: int) -> bool:
         return val > 100
 
-    def action(self, val: int) -> Result:
+    def action(self, val: int) -> ResultData:
         if self.condition(val):
-            return Result.OVERHUNDRED
+            return ResultData.OVERHUNDRED
 
 
 class RulesEvaluator:
@@ -68,14 +68,14 @@ class RulesEvaluator:
     def add_rules(self, rules: list[RuleInterface]) -> None:
         self.rules.extend(rules)
 
-    def first_rule(self, val: int) -> Result:
+    def first_rule(self, val: int) -> ResultData:
         for rule in self.rules:
             result = rule.action(val)
             if result:
                 return result
 
 
-def decision_tree(val: int) -> Result:
+def decision_tree(val: int) -> ResultData:
     evaluator = RulesEvaluator()
     evaluator.add_rules([
         NonIntRule(),

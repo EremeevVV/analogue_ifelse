@@ -1,14 +1,18 @@
-from answers import Result
+from data import ResultData, InputData
 
 
-def decision_tree(val: int) -> Result:
-    if not isinstance(val, int):
-        return Result.NONINT
-    if val > 0:
-        if val > 100:
-            return Result.OVERHUNDRED
-        return Result.POSITIVE
-    elif val == 0:
-        return Result.NULL
+def decision_tree(struct: InputData) -> ResultData:
+    if not isinstance(struct.digit, int):
+        return ResultData.NONINT
+    if struct.digit > 0:
+        if struct.digit > 100:
+            if struct.text == 'string2':
+                return ResultData.OVERHUNDRED_STRING2
+            return ResultData.OVERHUNDRED
+        if struct.text == 'string1':
+            return ResultData.POSITIVE_STRING1
+        return ResultData.POSITIVE
+    elif struct.digit == 0:
+        return ResultData.NULL
     else:
-        return Result.NEGATIVE
+        return ResultData.NEGATIVE
