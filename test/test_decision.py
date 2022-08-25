@@ -1,9 +1,8 @@
 from data import ResultData, InputData
-from traditional import decision_tree
 
-
+# from traditional import decision_tree
 # from rule_based import decision_tree
-# from functional import decision_tree
+from functional import decision_tree
 
 def test_decision_tree_nonint():
     given = InputData(0.1, 'string1')
